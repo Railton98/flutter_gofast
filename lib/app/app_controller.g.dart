@@ -24,18 +24,21 @@ mixin _$AppController on _AppControllerBase, Store {
     });
   }
 
-  final _$_AppControllerBaseActionController =
-      ActionController(name: '_AppControllerBase');
+  final _$getThemeDataAsyncAction =
+      AsyncAction('_AppControllerBase.getThemeData');
 
   @override
-  void setThemeData(ThemeMode themeMode) {
-    final _$actionInfo = _$_AppControllerBaseActionController.startAction(
-        name: '_AppControllerBase.setThemeData');
-    try {
-      return super.setThemeData(themeMode);
-    } finally {
-      _$_AppControllerBaseActionController.endAction(_$actionInfo);
-    }
+  Future<void> getThemeData() {
+    return _$getThemeDataAsyncAction.run(() => super.getThemeData());
+  }
+
+  final _$setThemeDataAsyncAction =
+      AsyncAction('_AppControllerBase.setThemeData');
+
+  @override
+  Future<void> setThemeData(ThemeMode themeMode, {dynamic saveShared = true}) {
+    return _$setThemeDataAsyncAction
+        .run(() => super.setThemeData(themeMode, saveShared: saveShared));
   }
 
   @override
