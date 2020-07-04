@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gofast/app/core/internationalization/app_translate.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -10,6 +11,9 @@ class _SplashPageState extends State<SplashPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      body: Center(
+        child: Text(AppTranslate(context).text('welcome')),
+      ),
     );
   }
 }
