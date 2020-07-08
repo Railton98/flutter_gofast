@@ -3,7 +3,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gofast/app/app_controller.dart';
-import 'package:gofast/app/core/internationalization/app_localizations.dart';
+
+import 'core/features/localization/app_localizations.dart';
 
 class AppWidget extends StatelessWidget {
   @override
@@ -22,6 +23,7 @@ class AppWidget extends StatelessWidget {
         ],
         localizationsDelegates: [
           AppLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
         ],
