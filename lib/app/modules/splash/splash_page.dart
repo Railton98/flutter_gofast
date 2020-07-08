@@ -1,6 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:gofast/app/core/enums/app_enums.dart';
+import 'package:gofast/app/core/interfaces/auth_repository_interface.dart';
 
 import '../../app_controller.dart';
 
@@ -12,7 +14,7 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
-    Firestore.instance.collection('books').document().setData({'title': 'title', 'author': 'author'});
+    // Firestore.instance.collection('books').document().setData({'title': 'title', 'author': 'author'});
     super.initState();
   }
 
@@ -30,6 +32,20 @@ class _SplashPageState extends State<SplashPage> {
             RaisedButton(
               onPressed: () => Modular.get<AppController>().setThemeData(ThemeMode.light),
               child: Text('Theme Light'),
+            ),
+            RaisedButton(
+              child: Text('Login Google'),
+              onPressed: () async {
+                await Modular.get<IAuthRepositoryInterface>().doLoginGoogle().then(
+                  (result) {
+                    if (result.status == ResponseStatus.Success) {
+                      print(result.message);
+                    } else {
+                      print(result.message);
+                    }
+                  },
+                );
+              },
             ),
           ],
         ),
