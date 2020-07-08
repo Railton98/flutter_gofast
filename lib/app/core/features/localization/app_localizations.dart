@@ -13,7 +13,8 @@ class AppLocalizations {
   Map<String, String> _locatizationsStrings;
 
   Future<bool> load() async {
-    String jsonString = await rootBundle.loadString('lang/${locale.languageCode}.json');
+    var jsonString =
+        await rootBundle.loadString('lang/${locale.languageCode}.json');
 
     Map<String, dynamic> jsonMap = json.decode(jsonString);
 
@@ -32,5 +33,6 @@ class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate = AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate =
+      AppLocalizationsDelegate();
 }

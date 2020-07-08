@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gofast/app/core/interfaces/theme_app_interface.dart';
+import '../../interfaces/theme_app_interface.dart';
 
 import 'app_theme_dark.dart';
 import 'app_theme_light.dart';

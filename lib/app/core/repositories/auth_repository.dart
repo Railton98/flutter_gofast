@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:gofast/app/core/features/responses/response_builder.dart';
-import 'package:gofast/app/core/features/responses/response_default.dart';
-import 'package:gofast/app/core/interfaces/auth_repository_interface.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
+import '../features/responses/response_builder.dart';
+import '../features/responses/response_default.dart';
+import '../interfaces/auth_repository_interface.dart';
 
 class AuthRepository implements IAuthRepositoryInterface {
   final FirebaseAuth firebaseAuth;
@@ -10,12 +11,15 @@ class AuthRepository implements IAuthRepositoryInterface {
   AuthRepository(this.firebaseAuth);
 
   @override
-  Future<DefaultResponse> doLoginEmailPassword(String email, String password) async {
+  Future<DefaultResponse> doLoginEmailPassword(
+      String email, String password) async {
     try {
-      await firebaseAuth.signInWithEmailAndPassword(email: email.trim(), password: password.trim());
+      await firebaseAuth.signInWithEmailAndPassword(
+          email: email.trim(), password: password.trim());
 
-      return ResponseBuilder.success<FirebaseUser>(object: await firebaseAuth.currentUser());
-    } catch (e) {
+      return ResponseBuilder.success<FirebaseUser>(
+          object: await firebaseAuth.currentUser());
+    } on Exception catch (e) {
       return ResponseBuilder.failed(object: e, message: e.toString());
     }
   }
@@ -23,16 +27,17 @@ class AuthRepository implements IAuthRepositoryInterface {
   @override
   Future<DefaultResponse> doLoginGoogle() async {
     try {
-      final GoogleSignIn googleSignIn = GoogleSignIn();
+      final googleSignIn = GoogleSignIn();
 
-      final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+      final googleSignInAccount = await googleSignIn.signIn();
 
-      final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+      final googleSignInAuthentication =
+          await googleSignInAccount.authentication;
 
       FirebaseUser firebaseUser;
 
       if (googleSignInAuthentication.accessToken != null) {
-        final AuthCredential credential = GoogleAuthProvider.getCredential(
+        final credential = GoogleAuthProvider.getCredential(
           idToken: googleSignInAuthentication.idToken,
           accessToken: googleSignInAuthentication.accessToken,
         );
@@ -42,17 +47,22 @@ class AuthRepository implements IAuthRepositoryInterface {
         });
       }
 
-      return ResponseBuilder.success<FirebaseUser>(object: firebaseUser, message: 'Logou com sucesso!');
-    } catch (e) {
-      return ResponseBuilder.failed(object: e, message: 'Falha ao logar com o Google! | e: ' + e.toString());
+      return ResponseBuilder.success<FirebaseUser>(
+          object: firebaseUser, message: 'Logou com sucesso!');
+    } on Exception catch (e) {
+      return ResponseBuilder.failed(
+        object: e,
+        message: 'Falha ao logar com o Google! | e: $e',
+      );
     }
   }
 
   @override
   Future<DefaultResponse> getUser() async {
     try {
-      return ResponseBuilder.success<FirebaseUser>(object: await firebaseAuth.currentUser());
-    } catch (e) {
+      return ResponseBuilder.success<FirebaseUser>(
+          object: await firebaseAuth.currentUser());
+    } on Exception catch (e) {
       return ResponseBuilder.failed(object: e, message: e.toString());
     }
   }
@@ -63,20 +73,24 @@ class AuthRepository implements IAuthRepositoryInterface {
       await firebaseAuth.signOut();
 
       return ResponseBuilder.success();
-    } catch (e) {
+    } on Exception catch (e) {
       return ResponseBuilder.failed(object: e, message: e.toString());
     }
   }
 
   @override
-  Future<DefaultResponse> registerEmailPassword(String email, String password) async {
+  Future<DefaultResponse> registerEmailPassword(
+      String email, String password) async {
     try {
-      return await firebaseAuth.createUserWithEmailAndPassword(email: email.trim(), password: password.trim()).then(
+      return await firebaseAuth
+          .createUserWithEmailAndPassword(
+              email: email.trim(), password: password.trim())
+          .then(
         (auth) {
           return ResponseBuilder.success<FirebaseUser>(object: auth.user);
         },
       );
-    } catch (e) {
+    } on Exception catch (e) {
       return ResponseBuilder.failed(object: e, message: e.toString());
     }
   }

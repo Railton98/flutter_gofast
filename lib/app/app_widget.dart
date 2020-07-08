@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:gofast/app/app_controller.dart';
+import 'app_controller.dart';
 
 import 'core/features/localization/app_localizations.dart';
 

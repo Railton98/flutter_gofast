@@ -1,1 +1,1 @@
-enum ResponseStatus { Success, Failed }
+enum ResponseStatus { rsSuccess, rsFailed }
