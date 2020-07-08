@@ -24,6 +24,21 @@ mixin _$AppController on _AppControllerBase, Store {
     });
   }
 
+  final _$themeModeAtom = Atom(name: '_AppControllerBase.themeMode');
+
+  @override
+  ThemeMode get themeMode {
+    _$themeModeAtom.reportRead();
+    return super.themeMode;
+  }
+
+  @override
+  set themeMode(ThemeMode value) {
+    _$themeModeAtom.reportWrite(value, super.themeMode, () {
+      super.themeMode = value;
+    });
+  }
+
   final _$loadThemeDataAsyncAction =
       AsyncAction('_AppControllerBase.loadThemeData');
 
@@ -44,7 +59,8 @@ mixin _$AppController on _AppControllerBase, Store {
   @override
   String toString() {
     return '''
-themeApp: ${themeApp}
+themeApp: ${themeApp},
+themeMode: ${themeMode}
     ''';
   }
 }

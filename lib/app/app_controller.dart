@@ -21,12 +21,16 @@ abstract class _AppControllerBase with Store {
   @observable
   IThemeAppInterface themeApp = AppThemeFactory.getTheme(ThemeMode.light);
 
+  @observable
+  ThemeMode themeMode = ThemeMode.light;
+
   @action
   Future<void> loadThemeData() async {
-    await sharedRepository.readThemeMode().then((themeMode) {
-      themeApp = AppThemeFactory.getTheme(themeMode);
+    await sharedRepository.readThemeMode().then((mode) {
+      themeMode = mode;
+      themeApp = AppThemeFactory.getTheme(mode);
 
-      setThemeData(themeMode, saveShared: false);
+      setThemeData(mode, saveShared: false);
     });
   }
 

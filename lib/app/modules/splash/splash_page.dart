@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../app_controller.dart';
-import '../../core/enums/app_enums.dart';
 import '../../core/interfaces/auth_repository_interface.dart';
 
 class SplashPage extends StatefulWidget {
@@ -40,7 +39,7 @@ class _SplashPageState extends State<SplashPage> {
                     .doLoginGoogle()
                     .then(
                   (result) {
-                    if (result.status == ResponseStatus.rsSuccess) {
+                    if (result.success) {
                       print(result.message);
                     } else {
                       print(result.message);
