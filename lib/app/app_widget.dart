@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'app_controller.dart';
 
+import 'app_controller.dart';
+import 'core/consts/routers_const.dart';
 import 'core/features/localization/app_localizations.dart';
 
 class AppWidget extends StatelessWidget {
@@ -13,7 +14,7 @@ class AppWidget extends StatelessWidget {
       return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter GoFast',
-        initialRoute: '/',
+        initialRoute: RoutersConst.intro, //RoutersConst.splash
         theme: Modular.get<AppController>().themeApp.getTheme(),
         themeMode: Modular.get<AppController>().themeMode,
         navigatorKey: Modular.navigatorKey,
