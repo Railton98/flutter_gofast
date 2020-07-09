@@ -1,6 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../controllers/intro_controller.dart';
+import '../controllers/intro/intro_controller.dart';
 import '../views/pages/intro/intro_page.dart';
 
 class IntroModule extends ChildModule {

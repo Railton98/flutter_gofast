@@ -10,8 +10,7 @@ class UserModel extends BaseModel {
 
   UserModel({this.name, this.bio, this.photoUrl, this.email});
 
-  UserModel.fromMap(DocumentSnapshot document) {
-    fromBaseMap(document);
+  UserModel.fromMap(DocumentSnapshot document) : super.fromMap(document) {
     name = document.data['name'];
     bio = document.data['bio'];
     photoUrl = document.data['photoUrl'];
@@ -20,9 +19,7 @@ class UserModel extends BaseModel {
 
   @override
   Map toMap() {
-    final map = <String, dynamic>{};
-
-    map.addAll(toBaseMap());
+    final map = super.toMap();
 
     map['name'] = name;
     map['bio'] = bio;

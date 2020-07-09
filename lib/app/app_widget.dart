@@ -14,7 +14,7 @@ class AppWidget extends StatelessWidget {
       return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter GoFast',
-        initialRoute: RoutersConst.splash,
+        initialRoute: RoutersConst.intro,
         theme: Modular.get<AppController>().themeApp.getTheme(),
         themeMode: Modular.get<AppController>().themeMode,
         navigatorKey: Modular.navigatorKey,

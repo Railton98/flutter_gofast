@@ -1,24 +1,29 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../interfaces/firebase_repository_base_interface.dart';
 
+import '../interfaces/firebase_repository_base_interface.dart';
 import '../models/base_model.dart';
 
 class FirebaseRepositoryBase<Model extends BaseModel>
     implements IFirebabseRepositoryBaseInterface<Model> {
-  FirebaseRepositoryBase({this.fromMap, this.collection});
+  FirebaseRepositoryBase({this.fromMap, this.collection}) {
+    collection ?? '${Model.toString().toLowerCase()}s';
+    collectionReference = Firestore.instance.collection(collection);
+  }
 
   final Model Function(DocumentSnapshot document) fromMap;
 
-  final String collection;
+  String collection;
+
+  CollectionReference collectionReference;
 
   @override
   Future<String> add(Model model) async {
     model.setCreateTime();
     model.setUpdateTime();
 
-    final collection = Firestore.instance.collection(this.collection);
+    final collection = collectionReference;
     final document = await collection.add(model.toMap());
 
     return document.documentID;
@@ -28,7 +33,7 @@ class FirebaseRepositoryBase<Model extends BaseModel>
   Future<void> update(Model model) async {
     model.setUpdateTime();
 
-    final collection = Firestore.instance.collection(this.collection);
+    final collection = collectionReference;
 
     await collection.document(model.documentId()).updateData(model.toMap());
   }
@@ -49,14 +54,14 @@ class FirebaseRepositoryBase<Model extends BaseModel>
 
   @override
   Future<void> delete(String documentId) async {
-    final collection = Firestore.instance.collection(this.collection);
+    final collection = collectionReference;
 
     await collection.document(documentId).delete();
   }
 
   @override
   Future<Model> getById(String documentId) async {
-    final collection = Firestore.instance.collection(this.collection);
+    final collection = collectionReference;
 
     final snapshot = await collection.document(documentId).get();
 
@@ -65,7 +70,7 @@ class FirebaseRepositoryBase<Model extends BaseModel>
 
   @override
   Future<List<Model>> getAll() async {
-    final collection = Firestore.instance.collection(this.collection);
+    final collection = collectionReference;
 
     var list = <Model>[];
     final querySnapshot = await collection.getDocuments();

@@ -3,17 +3,22 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../interfaces/base_model_interface.dart';
 
 class BaseModel implements IBaseModelInterface {
-  BaseModel();
-
-  BaseModel.fromMap(DocumentSnapshot document);
-
   String id;
   bool isActive = true;
   Timestamp createdAt;
   Timestamp updatedAt;
 
+  BaseModel();
+
+  BaseModel.fromMap(DocumentSnapshot document) {
+    id = document.documentID;
+    isActive = document.data['isActive'];
+    createdAt = document.data['createdAt'];
+    updatedAt = document.data['updatedAt'];
+  }
+
   @override
-  Map toBaseMap() {
+  Map toMap() {
     final map = <String, dynamic>{};
 
     map['isActive'] = isActive;
@@ -21,14 +26,6 @@ class BaseModel implements IBaseModelInterface {
     map['updatedAt'] = updatedAt;
 
     return map;
-  }
-
-  @override
-  void fromBaseMap(DocumentSnapshot document) {
-    id = document.documentID;
-    isActive = document.data['isActive'];
-    createdAt = document.data['createdAt'];
-    updatedAt = document.data['updatedAt'];
   }
 
   @override
@@ -45,7 +42,4 @@ class BaseModel implements IBaseModelInterface {
 
   @override
   String documentId() => id;
-
-  @override
-  Map toMap() => null;
 }
