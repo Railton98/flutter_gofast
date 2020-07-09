@@ -4,12 +4,14 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import 'app_controller.dart';
 import 'app_widget.dart';
+import 'controllers/auth/auth_controller.dart';
 import 'core/consts/routers_const.dart';
 import 'interfaces/auth_repository_interface.dart';
 import 'interfaces/shared_repository_interface.dart';
 import 'modules/home_module.dart';
 import 'modules/intro_module.dart';
 import 'modules/login_module.dart';
+import 'modules/register/register_module.dart';
 import 'repositories/auth_repository.dart';
 import 'repositories/shared_repository.dart';
 import 'views/pages/splash/splash_page.dart';
@@ -19,14 +21,19 @@ class AppModule extends MainModule {
 
   @override
   List<Bind> get binds => [
+        // Repositories
         Bind<ISharedRepositoryInterface>(
           (i) => SharedRepository(),
         ),
         Bind<IAuthRepositoryInterface>(
           (i) => AuthRepository(firebaseAuth),
         ),
+        // Controllers
         Bind(
           (i) => AppController(),
+        ),
+        Bind(
+          (i) => AuthController(),
         ),
       ];
 
@@ -40,8 +47,21 @@ class AppModule extends MainModule {
           child: (_, args) => SplashPage(),
           transition: TransitionType.noTransition,
         ),
-        Router(RoutersConst.intro, module: IntroModule()),
-        Router(RoutersConst.login, module: LoginModule()),
-        Router(RoutersConst.home, module: HomeModule()),
+        Router(
+          RoutersConst.intro,
+          module: IntroModule(),
+        ),
+        Router(
+          RoutersConst.login,
+          module: LoginModule(),
+        ),
+        Router(
+          RoutersConst.register,
+          module: RegisterModule(),
+        ),
+        Router(
+          RoutersConst.home,
+          module: HomeModule(),
+        ),
       ];
 }

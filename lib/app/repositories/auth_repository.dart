@@ -12,7 +12,7 @@ class AuthRepository implements IAuthRepositoryInterface {
 
   @override
   Future<DefaultResponse> doLoginEmailPassword(
-      String email, String password) async {
+      {String email, String password}) async {
     try {
       await firebaseAuth.signInWithEmailAndPassword(
           email: email.trim(), password: password.trim());
@@ -80,7 +80,7 @@ class AuthRepository implements IAuthRepositoryInterface {
 
   @override
   Future<DefaultResponse> registerEmailPassword(
-      String email, String password) async {
+      {String email, String password}) async {
     try {
       return await firebaseAuth
           .createUserWithEmailAndPassword(

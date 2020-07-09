@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../../controllers/auth/auth_controller.dart';
 import '../../../controllers/intro/intro_controller.dart';
 import '../../../core/consts/colors_const.dart';
 import '../../../core/localization/app_translate.dart';
@@ -13,7 +14,15 @@ class IntroPage extends StatefulWidget {
 }
 
 class _IntroPageState extends ModularState<IntroPage, IntroController> {
+  var _authController;
+
   int currentIndex = 0;
+
+  @override
+  void initState() {
+    _authController = Modular.get<AuthController>();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +94,7 @@ class _IntroPageState extends ModularState<IntroPage, IntroController> {
                     SizedBox(height: _height * 0.04),
                     RaisedButton(
                       color: Colors.red,
-                      onPressed: () async => await controller.doLoginGoogle(),
+                      onPressed: _authController.doLoginGoogle,
                       child: Text(
                         AppTranslate(context).text('intro.login_google'),
                         style: Theme.of(context).textTheme.bodyText2.copyWith(
