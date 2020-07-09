@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/consts/assets_const.dart';
-import '../../../core/features/localization/app_translate.dart';
+import '../../../../core/consts/assets_const.dart';
+import '../../../../core/localization/app_translate.dart';
 import 'slide_page_widget.dart';
 
 class SlideWidget extends StatelessWidget {

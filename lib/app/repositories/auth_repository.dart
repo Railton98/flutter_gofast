@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import '../features/responses/response_builder.dart';
-import '../features/responses/response_default.dart';
+import '../core/responses/response_builder.dart';
+import '../core/responses/response_default.dart';
 import '../interfaces/auth_repository_interface.dart';
 
 class AuthRepository implements IAuthRepositoryInterface {

@@ -5,14 +5,14 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'app_controller.dart';
 import 'app_widget.dart';
 import 'core/consts/routers_const.dart';
-import 'core/interfaces/auth_repository_interface.dart';
-import 'core/interfaces/shared_repository_interface.dart';
-import 'core/repositories/auth_repository.dart';
-import 'core/repositories/shared_repository.dart';
-import 'modules/home/home_module.dart';
-import 'modules/intro/intro_module.dart';
-import 'modules/login/login_module.dart';
-import 'modules/splash/splash_page.dart';
+import 'interfaces/auth_repository_interface.dart';
+import 'interfaces/shared_repository_interface.dart';
+import 'modules/home_module.dart';
+import 'modules/intro_module.dart';
+import 'modules/login_module.dart';
+import 'repositories/auth_repository.dart';
+import 'repositories/shared_repository.dart';
+import 'views/pages/splash/splash_page.dart';
 
 class AppModule extends MainModule {
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;

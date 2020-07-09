@@ -1,4 +1,4 @@
-import '../../enums/app_enums.dart';
+import '../enums/app_enums.dart';
 
 import 'response_default.dart';
 

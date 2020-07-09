@@ -5,7 +5,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import 'app_controller.dart';
 import 'core/consts/routers_const.dart';
-import 'core/features/localization/app_localizations.dart';
+import 'core/localization/app_localizations.dart';
 
 class AppWidget extends StatelessWidget {
   @override

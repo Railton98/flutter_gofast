@@ -1,7 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
-import 'intro_controller.dart';
-import 'intro_page.dart';
+import '../controllers/intro_controller.dart';
+import '../views/pages/intro/intro_page.dart';
 
 class IntroModule extends ChildModule {
   @override

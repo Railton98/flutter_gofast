@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../../core/consts/colors_const.dart';
-import '../../core/features/localization/app_translate.dart';
-import 'intro_controller.dart';
+import '../../../controllers/intro_controller.dart';
+import '../../../core/consts/colors_const.dart';
+import '../../../core/localization/app_translate.dart';
 import 'widgets/slide_dots_widget.dart';
 import 'widgets/slide_widget.dart';
 

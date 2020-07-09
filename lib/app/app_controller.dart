@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
-import 'core/features/theme/app_theme_factory.dart';
-import 'core/interfaces/shared_repository_interface.dart';
-import 'core/interfaces/theme_app_interface.dart';
-import 'core/repositories/shared_repository.dart';
+import 'core/theme/app_theme_factory.dart';
+import 'interfaces/shared_repository_interface.dart';
+import 'interfaces/theme_app_interface.dart';
+import 'repositories/shared_repository.dart';
 
 part 'app_controller.g.dart';
 
