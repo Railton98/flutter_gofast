@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../controllers/auth/auth_controller.dart';
@@ -7,15 +8,12 @@ import '../../../core/localization/app_translate.dart';
 import '../../widgets/scroll_widget.dart';
 
 class LoginPage extends StatefulWidget {
-  final String title;
-  const LoginPage({Key key, this.title = "Login"}) : super(key: key);
-
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends ModularState<LoginPage, LoginController> {
-  var _authController;
+  AuthController _authController;
 
   @override
   void initState() {
@@ -28,31 +26,45 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
     final _height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+      appBar: AppBar(title: Text('Login')),
       body: ScrollWidget(
         children: <Widget>[
           TextField(
+            onChanged: _authController.setEmail,
             decoration: InputDecoration(hintText: 'Seu e-mail'),
             keyboardType: TextInputType.emailAddress,
           ),
           SizedBox(height: _height * 0.02),
           TextField(
+            onChanged: _authController.setPassword,
             decoration: InputDecoration(hintText: 'Sua senha'),
             keyboardType: TextInputType.visiblePassword,
             obscureText: true,
           ),
           SizedBox(height: _height * 0.06),
-          RaisedButton(
-            onPressed: () {},
-            child: Text(
-              AppTranslate(context).text('intro.login_now'),
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText2
-                  .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-            ),
+          Observer(
+            name: 'LoginButton',
+            builder: (context) {
+              return RaisedButton(
+                onPressed: _authController.enableButton
+                    ? () async {
+                        await _authController.doLoginEmailPassword().catchError(
+                          (error) {
+                            var scnackbar = SnackBar(
+                              content: Text(error.message),
+                            );
+                            Scaffold.of(context).showSnackBar(scnackbar);
+                          },
+                        );
+                      }
+                    : null,
+                child: Text(
+                  AppTranslate(context).text('intro.login_now'),
+                  style: Theme.of(context).textTheme.bodyText2.copyWith(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+              );
+            },
           ),
           SizedBox(height: _height * 0.06),
           RaisedButton(

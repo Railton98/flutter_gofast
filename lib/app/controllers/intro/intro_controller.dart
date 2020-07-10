@@ -4,6 +4,6 @@ import '../../core/consts/routers_const.dart';
 
 class IntroController {
   void doEnter() {
-    Modular.to.pushNamed(RoutersConst.login);
+    Modular.to.pushReplacementNamed(RoutersConst.login);
   }
 }

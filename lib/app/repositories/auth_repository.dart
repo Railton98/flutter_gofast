@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../core/errors/register_error_interceptor.dart';
 import '../core/responses/response_builder.dart';
 import '../core/responses/response_default.dart';
 import '../interfaces/auth_repository_interface.dart';
@@ -49,10 +50,10 @@ class AuthRepository implements IAuthRepositoryInterface {
 
       return ResponseBuilder.success<FirebaseUser>(
           object: firebaseUser, message: 'Logou com sucesso!');
-    } on Exception catch (e) {
+    } catch (e) {
       return ResponseBuilder.failed(
         object: e,
-        message: 'Falha ao logar com o Google! | e: $e',
+        message: 'Falha ao logar com o Google! | e: ${e.toString()}',
       );
     }
   }
@@ -90,8 +91,12 @@ class AuthRepository implements IAuthRepositoryInterface {
           return ResponseBuilder.success<FirebaseUser>(object: auth.user);
         },
       );
-    } on Exception catch (e) {
-      return ResponseBuilder.failed(object: e, message: e.toString());
+    } catch (e) {
+      return ResponseBuilder.failed(
+        object: e,
+        message: e.code,
+        errorInterceptor: RegisterErrorInterceptor(),
+      );
     }
   }
 }
